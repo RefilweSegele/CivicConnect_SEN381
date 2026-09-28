@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CivicConnect - Service Requests</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>CivicConnect</h1>
+    <p>Community Issue Reporting & Management</p>
+  </header>
+
+  <main class="container">
+    <section class="card form-section">
+      <h2>Report an Issue</h2>
+      <form id="request-form">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" placeholder="e.g., Pothole on Main St" required />
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select id="category" name="category" required>
+            <option value="">Select a category</option>
+            <option value="Roads">Roads & Infrastructure</option>
+            <option value="Water">Water & Sanitation</option>
+            <option value="Electricity">Electricity & Lighting</option>
+            <option value="Waste">Waste Management</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" name="description" rows="4" placeholder="Provide additional details..." required></textarea>
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn btn-primary">Submit Request</button>
+      </form>
+    </section>
+
+    <section class="list-section">
+      <div class="section-header">
+        <h2>Submitted Requests</h2>
+        <button id="refresh-btn" class="btn btn-secondary">Refresh</button>
+      </div>
+      
+      <div id="loading-spinner" class="spinner hidden">Loading requests...</div>
+      <div id="error-message" class="alert alert-danger hidden"></div>
+      
+      <div id="requests-container" class="requests-grid">
+        <!-- Dynamic content injected by app.js -->
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
