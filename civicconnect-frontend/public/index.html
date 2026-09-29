@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivicConnect - Service Requests</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1>CivicConnect</h1>
+        <p>Service Request & Monitoring Portal</p>
+    </header>
+
+    <main class="container">
+        <!-- Submission Form (FR-001 & FR-002) -->
+        <section class="card">
+            <h2>Submit a New Request</h2>
+            <form id="requestForm">
+                <div class="form-group">
+                    <label for="title">Title *</label>
+                    <input type="text" id="title" placeholder="e.g., Burst water pipe on 5th Ave" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category *</label>
+                    <select id="category" required>
+                        <option value="">-- Select Category --</option>
+                        <option value="Infrastructure">Infrastructure</option>
+                        <option value="Water & Sanitation">Water & Sanitation</option>
+                        <option value="Electricity">Electricity</option>
+                        <option value="Waste Management">Waste Management</option>
+                        <option value="IT Support">IT Support</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description *</label>
+                    <textarea id="description" rows="4" placeholder="Provide detailed information regarding the issue..." required></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn">Submit Request</button>
+            </form>
+            <div id="formFeedback" class="feedback-msg"></div>
+        </section>
+
+        <!-- Request History & Tracking (FR-003 & FR-004) -->
+        <section class="card">
+            <div class="section-header">
+                <h2>My Submitted Requests</h2>
+                <button id="refreshBtn" class="btn-secondary">Refresh</button>
+            </div>
+            
+            <div id="loadingSpinner" class="hidden">Loading requests...</div>
+            <div id="requestList" class="request-list"></div>
+        </section>
+    </main>
+
+    <script type="module" src="../src/app.js"></script>
+</body>
+</html>
