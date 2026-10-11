@@ -54,5 +54,10 @@ jobs:
             echo "Frontend static entry point found!"
           else
             echo "Frontend directory structure verified."
-          fifrontend
+                   fi
+
+      - name: Install Frontend Dependencies and Test
+        run: |
+          cd civicconnect-frontend
+          npm install
           npm test --if-present
