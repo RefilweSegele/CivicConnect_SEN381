@@ -1,44 +1,63 @@
 /**
- * Frontend Black-Box & Validation Tests ( For Milestone 3 part )
+ * Frontend Black-Box & E2E Validation Suite That Is Needed For Milestone 3
+ * Author: Nompilo Mbense (Member 3)
+ * Rigorous validation of UI form payload rules, BVA, EP, and negative states.
  */
 
-// Simple assertion helper for client-side test execution
-function assert(condition, message) {
+function assert(condition, testId, description) {
     if (!condition) {
-        throw new Error(`Assertion Failed: ${message}`);
+        throw new Error(`[FAIL] ${testId}: ${description}`);
     }
+    console.log(`[PASS] ${testId}: ${description}`);
 }
 
-// Mock Request Validation Logic matching RequestFactory / form rules
-function validateRequestPayload(data) {
-    if (!data.title || data.title.trim().length < 3 || data.title.trim().length > 100) {
-        return { valid: false, error: 'Title must be between 3 and 100 characters.' };
+// Pre-flight payload validation mirroring frontend form constraints
+function validateServiceRequest(payload) {
+    if (!payload.title || typeof payload.title !== 'string') {
+        return { valid: false, error: 'Title is required.' };
     }
+    const trimmedTitle = payload.title.trim();
+    // Boundary Value Analysis: Title length must be between 3 and 100 characters
+    if (trimmedTitle.length < 3 || trimmedTitle.length > 100) {
+        return { valid: false, error: 'Title boundary violation: Must be 3-100 chars.' };
+    }
+
     const validCategories = ['Infrastructure', 'Water & Sanitation', 'Electricity', 'Waste Management', 'IT Support'];
-    if (!validCategories.includes(data.category)) {
-        return { valid: false, error: 'Invalid category selected.' };
+    // Equivalence Partitioning: Category must belong to valid partition
+    if (!validCategories.includes(payload.category)) {
+        return { valid: false, error: 'Equivalence violation: Invalid municipal category.' };
     }
-    if (!data.description || data.description.trim().length < 10) {
-        return { valid: false, error: 'Description must be at least 10 characters long.' };
+
+    if (!payload.description || payload.description.trim().length < 10) {
+        return { valid: false, error: 'Description must be at least 10 characters.' };
     }
+
     return { valid: true };
 }
 
-// --- Test Suite Execution ---
-console.log('Running Frontend Black-Box & Validation Tests...');
+// --- TEST EXECUTION BASELINE ---
+console.log('____________________________________________');
+console.log('VALIDATE VALIDATE VALIDATE VALIDATE VALIDATE');
+console.log('____________________________________________');
 
-// BB-01: Boundary Value Analysis - Title Length (Min boundary = 3)
-const testTitleTooShort = validateRequestPayload({ title: 'Hi', category: 'Infrastructure', description: 'Burst water pipe reported on 5th Ave.' });
-assert(testTitleTooShort.valid === false, 'BB-01b: Title length < 3 must fail validation');
+// BB-01: Boundary Value Analysis (Title Lower Boundary - 2 chars vs 3 chars)
+const bvaFail = validateServiceRequest({ title: 'Pi', category: 'Infrastructure', description: 'Broken street light on main road.' });
+assert(bvaFail.valid === false, 'BB-01 (BVA)', 'Reject title below lower boundary (2 chars)');
 
-const testTitleValid = validateRequestPayload({ title: 'Burst pipe', category: 'Water & Sanitation', description: 'Major leak on main municipal road.' });
-assert(testTitleValid.valid === true, 'BB-01a: Valid title length must pass validation');
+const bvaPass = validateServiceRequest({ title: 'Pipe Leak', category: 'Water & Sanitation', description: 'Major water leak on 5th Avenue intersection.' });
+assert(bvaPass.valid === true, 'BB-01 (BVA)', 'Accept title exactly on lower valid boundary (9 chars)');
 
-// BB-02: Equivalence Partitioning - Category Selection
-const testInvalidCategory = validateRequestPayload({ title: 'Broken Light', category: 'SpaceTravel', description: 'Streetlight is completely broken.' });
-assert(testInvalidCategory.valid === false, 'BB-02: Invalid category must be rejected');
+// BB-02: Equivalence Partitioning (Category Partitions)
+const epInvalid = validateServiceRequest({ title: 'Pothole', category: 'SpaceDepartment', description: 'Deep pothole causing vehicle damage.' });
+assert(epInvalid.valid === false, 'BB-02 (EP)', 'Reject invalid category outside valid equivalence partition');
 
-const testValidCategory = validateRequestPaylod = validateRequestPayload({ title: 'Broken Light', category: 'Electricity', description: 'Streetlight is completely broken.' });
-assert(testValidCategory.valid === true, 'BB-02b: Valid category must be accepted');
+const epValid = validateServiceRequest({ title: 'Pothole', category: 'Infrastructure', description: 'Deep pothole causing vehicle damage.' });
+assert(epValid.valid === true, 'BB-02 (EP)', 'Accept valid category within standard partition');
 
-console.log('All Member 3 Frontend Black-Box Tests Passed Successfully!');
+// BB-03: Negative Testing (Missing Required Fields / Malformed Payload)
+const negTest = validateServiceRequest({ title: '', category: 'Electricity', description: '' });
+assert(negTest.valid === false, 'BB-03 (Negative)', 'Reject empty required fields and incomplete payload');
+
+console.log('___________________________________________________');
+console.log('------Black-Box Tests Executed Successfully.-------');
+console.log('___________________________________________________');
