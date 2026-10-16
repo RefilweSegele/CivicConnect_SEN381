@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "test": "npm --prefix civicconnect-backend test"
+  },
   "dependencies": {
     "mongoose": "^9.10.3"
   }
