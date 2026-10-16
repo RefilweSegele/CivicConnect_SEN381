@@ -1,15 +1,13 @@
 //in preparation for milestone 3. Create the schema for the user
 const mongoose = require('mongoose');
 
-const userSchema =new mongoose.Schema({
-    name: {String, required:true, trim:true},
-    email :{String, required:true, unique:true, lowercase:true },
-    password:{String, required:true, unique:true},
-    role: {String, required:true, Enum:['resident', 'staff','supervisor', 'admin'], default:null},
-    departmentId: {String, default:null},
-    createdAt: {Date, Timestamp: true},
-    updatedAt : {Date,Timestamp:true}
-});
+const userSchema = new mongoose.Schema({
+    name: { type: String, required: true, trim: true },
+    email: { type: String, required: true, unique: true, lowercase: true },
+    password: { type: String, required: true, unique: true },
+    role: { type: String, required: true, enum: ['resident', 'staff', 'supervisor', 'admin'] },
+    departmentId: { type: String, default: null }
+}, { timestamps: true });
 
 //export the model
-module.exports = mogoose.model('user', userSchema);
+module.exports = mongoose.model('user', userSchema);

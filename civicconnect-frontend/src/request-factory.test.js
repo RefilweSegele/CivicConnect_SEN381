@@ -38,7 +38,7 @@ assert(testTitleValid.valid === true, 'BB-01a: Valid title length must pass vali
 const testInvalidCategory = validateRequestPayload({ title: 'Broken Light', category: 'SpaceTravel', description: 'Streetlight is completely broken.' });
 assert(testInvalidCategory.valid === false, 'BB-02: Invalid category must be rejected');
 
-const testValidCategory = validateRequestPaylod = validateRequestPayload({ title: 'Broken Light', category: 'Electricity', description: 'Streetlight is completely broken.' });
+const testValidCategory = validateRequestPayload = validateRequestPayload({ title: 'Broken Light', category: 'Electricity', description: 'Streetlight is completely broken.' });
 assert(testValidCategory.valid === true, 'BB-02b: Valid category must be accepted');
 
 console.log('All Member 3 Frontend Black-Box Tests Passed Successfully!');

@@ -2,10 +2,11 @@
   "name": "civicconnect-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/app.js",
   "scripts": {
+    "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env NODE_ENV=test MONGO_URI_TEST=mongodb://127.0.0.1:27017/civicconnect_test jest --detectOpenHandles --forceExit --runInBand"
   },
   "keywords": [],
   "author": "",
@@ -13,9 +14,13 @@
   "type": "commonjs",
   "dependencies": {
     "dotenv": "^18.0.3",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "mongoose": "^8.24.5"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "cross-env": "^10.1.0",
+    "jest": "^30.5.2",
+    "nodemon": "^1.14.10",
+    "supertest": "^7.3.1"
   }
 }
