@@ -30,6 +30,7 @@ jobs:
         run: |
           cd civicconnect-backend
           npm install
+          npm install cross-env #install cross-env for setting environment variables in a cross-platform way
 
       - name: Run Backend Tests
         env:
@@ -61,3 +62,4 @@ jobs:
           cd civicconnect-frontend
           npm install
           npm test --if-present
+
