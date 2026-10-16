@@ -3,19 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0E2240">
+    <meta name="description" content="Report problems in your neighbourhood and track each request until it is resolved.">
     <title>CivicConnect - Service Requests</title>
-    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+    <!-- Fonts + styles (adjust the styles.css path to match your project) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header class="app-header">
+        <svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true">
+            <rect width="64" height="64" rx="14" fill="#F5B700" />
+            <path d="M32 11 54 26H10Z" fill="#0E2240" />
+            <rect x="14" y="30" width="6" height="16" rx="1.5" fill="#0E2240" />
+            <rect x="29" y="30" width="6" height="16" rx="1.5" fill="#0E2240" />
+            <rect x="44" y="30" width="6" height="16" rx="1.5" fill="#0E2240" />
+            <rect x="9" y="49" width="46" height="6" rx="2" fill="#0E2240" />
+        </svg>
         <h1>CivicConnect</h1>
-        <p>Service Request & Monitoring Portal</p>
+        <p>Service Request &amp; Monitoring Portal</p>
     </header>
 
     <main class="container">
         <!-- Submission Form (FR-001 & FR-002) -->
         <section class="card">
             <h2>Submit a New Request</h2>
+            <p class="card-lead">It takes about a minute. Fields marked * are required.</p>
             <form id="requestForm">
                 <div class="form-group">
                     <label for="title">Title *</label>
@@ -27,7 +45,7 @@
                     <select id="category" required>
                         <option value="">-- Select Category --</option>
                         <option value="Infrastructure">Infrastructure</option>
-                        <option value="Water & Sanitation">Water & Sanitation</option>
+                        <option value="Water & Sanitation">Water &amp; Sanitation</option>
                         <option value="Electricity">Electricity</option>
                         <option value="Waste Management">Waste Management</option>
                         <option value="IT Support">IT Support</option>
@@ -41,7 +59,7 @@
 
                 <button type="submit" id="submitBtn">Submit Request</button>
             </form>
-            <div id="formFeedback" class="feedback-msg"></div>
+            <div id="formFeedback" class="feedback-msg" role="status" aria-live="polite"></div>
         </section>
 
         <!-- Request History & Tracking (FR-003 & FR-004) -->
@@ -50,11 +68,15 @@
                 <h2>My Submitted Requests</h2>
                 <button id="refreshBtn" class="btn-secondary">Refresh</button>
             </div>
-            
-            <div id="loadingSpinner" class="hidden">Loading requests...</div>
+
+            <div id="loadingSpinner" class="hidden"><span class="spinner" aria-hidden="true"></span>Loading requests...</div>
             <div id="requestList" class="request-list"></div>
         </section>
     </main>
+
+    <script type="module" src="../src/app.js"></script>
+</body>
+</html>
 
     <script type="module" src="../src/app.js"></script>
 </body>
