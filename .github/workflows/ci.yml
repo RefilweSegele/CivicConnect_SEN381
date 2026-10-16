@@ -30,6 +30,7 @@ jobs:
         run: |
           cd civicconnect-backend
           npm install
+          npm install cross-env 
 
       - name: Run Backend Tests
         env:
