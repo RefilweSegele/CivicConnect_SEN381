@@ -1,6 +1,7 @@
 function errorHandler(err, req, res, next) {
-  console.error(err.stack);
-  res.status(500).json({ error: 'Something went wrong' });
+  const status = err.status || 500;
+  if (status === 500) console.error(err.stack);
+  res.status(status).json({ message: status === 500 ? 'Something went wrong' : err.message });
 }
 
 module.exports = errorHandler;
